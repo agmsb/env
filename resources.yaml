@@ -1,12 +1,13 @@
 apiVersion: v1
 data:
-  FEATURE: risky and unstable feature in dev
+  FEATURE: stable and reliable feature
 kind: ConfigMap
 metadata:
   labels:
     app.kubernetes.io/managed-by: skaffold
-    skaffold.dev/run-id: 58495b7d-4a57-48a4-a34b-c2f93a9415c4
-  name: demo-feature-78g9647627
+    env: prod
+    skaffold.dev/run-id: f27596b1-0b6a-42d2-9c8d-eccda16e4e0a
+  name: demo-feature-f995d97h79
 ---
 apiVersion: v1
 kind: Service
@@ -14,7 +15,8 @@ metadata:
   labels:
     app: flask-app
     app.kubernetes.io/managed-by: skaffold
-    skaffold.dev/run-id: 58495b7d-4a57-48a4-a34b-c2f93a9415c4
+    env: prod
+    skaffold.dev/run-id: f27596b1-0b6a-42d2-9c8d-eccda16e4e0a
   name: flask-app-svc
 spec:
   ports:
@@ -23,6 +25,8 @@ spec:
     targetPort: 5000
   selector:
     app: flask-app
+    env: prod
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -30,19 +34,22 @@ metadata:
   labels:
     app: flask-app
     app.kubernetes.io/managed-by: skaffold
-    skaffold.dev/run-id: 58495b7d-4a57-48a4-a34b-c2f93a9415c4
+    env: prod
+    skaffold.dev/run-id: f27596b1-0b6a-42d2-9c8d-eccda16e4e0a
   name: flask-app
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: flask-app
+      env: prod
   template:
     metadata:
       labels:
         app: flask-app
         app.kubernetes.io/managed-by: skaffold
-        skaffold.dev/run-id: 58495b7d-4a57-48a4-a34b-c2f93a9415c4
+        env: prod
+        skaffold.dev/run-id: f27596b1-0b6a-42d2-9c8d-eccda16e4e0a
     spec:
       containers:
       - env:
@@ -50,8 +57,8 @@ spec:
           valueFrom:
             configMapKeyRef:
               key: FEATURE
-              name: demo-feature-78g9647627
-        image: gcr.io/agmsb-k8s/flask-app:c5cb44e@sha256:7a1bf240e3c9daefcd3d6df908a40d23a6892bd3f4e4e6c7fb90742d6ba61f84
+              name: demo-feature-f995d97h79
+        image: gcr.io/agmsb-k8s/flask-app:c18aafd@sha256:5835e2a3e106ab6be1edac62a66f93a2053fbd3d25c6bab9146b094dc3767093
         imagePullPolicy: IfNotPresent
         name: flask-app
         ports:
