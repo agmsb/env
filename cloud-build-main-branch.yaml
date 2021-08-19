@@ -1,0 +1,11 @@
+steps:
+- id: skaffold-apply
+  name: "gcr.io/k8s-skaffold/skaffold:v1.23.0"
+  entrypoint: "/bin/bash"
+  args:
+    - '-c'
+    - |
+      gcloud container clusters get-credentials oregon --zone us-west1-a --project agmsb-k8s
+      skaffold apply resources.yaml
+options:
+  workerPool: 'projects/agmsb-k8s/locations/us-west1/workerPools/private-pool-ghe'
