@@ -1,0 +1,58 @@
+apiVersion: v1
+data:
+  FEATURE: risky and unstable feature in dev
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/managed-by: skaffold
+    skaffold.dev/run-id: 58495b7d-4a57-48a4-a34b-c2f93a9415c4
+  name: demo-feature-78g9647627
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: flask-app
+    app.kubernetes.io/managed-by: skaffold
+    skaffold.dev/run-id: 58495b7d-4a57-48a4-a34b-c2f93a9415c4
+  name: flask-app-svc
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: flask-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: flask-app
+    app.kubernetes.io/managed-by: skaffold
+    skaffold.dev/run-id: 58495b7d-4a57-48a4-a34b-c2f93a9415c4
+  name: flask-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+        app.kubernetes.io/managed-by: skaffold
+        skaffold.dev/run-id: 58495b7d-4a57-48a4-a34b-c2f93a9415c4
+    spec:
+      containers:
+      - env:
+        - name: FEATURE
+          valueFrom:
+            configMapKeyRef:
+              key: FEATURE
+              name: demo-feature-78g9647627
+        image: gcr.io/agmsb-k8s/flask-app:c5cb44e@sha256:7a1bf240e3c9daefcd3d6df908a40d23a6892bd3f4e4e6c7fb90742d6ba61f84
+        imagePullPolicy: IfNotPresent
+        name: flask-app
+        ports:
+        - containerPort: 5000
