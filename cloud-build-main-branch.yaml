@@ -5,7 +5,5 @@ steps:
   args:
     - '-c'
     - |
-      gcloud container clusters get-credentials gke-west-1 --zone us-west1-a --project agmsb-k8s
+      gcloud container clusters get-credentials prod --zone us-west1-a --project agmsb-k8s
       skaffold apply resources.yaml
-options:
-  workerPool: 'projects/agmsb-k8s/locations/us-west1/workerPools/sandbox-privatepool'
