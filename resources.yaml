@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: skaffold
     env: prod
-    skaffold.dev/run-id: b117aca5-cb7e-4505-9bbf-1c1877a8df0e
+    skaffold.dev/run-id: df46ca15-9da6-4969-8b30-4125ac791cd0
   name: demo-feature-f995d97h79
 ---
 apiVersion: v1
@@ -16,7 +16,7 @@ metadata:
     app: flask-app
     app.kubernetes.io/managed-by: skaffold
     env: prod
-    skaffold.dev/run-id: b117aca5-cb7e-4505-9bbf-1c1877a8df0e
+    skaffold.dev/run-id: df46ca15-9da6-4969-8b30-4125ac791cd0
   name: flask-app-svc
 spec:
   ports:
@@ -35,7 +35,7 @@ metadata:
     app: flask-app
     app.kubernetes.io/managed-by: skaffold
     env: prod
-    skaffold.dev/run-id: b117aca5-cb7e-4505-9bbf-1c1877a8df0e
+    skaffold.dev/run-id: df46ca15-9da6-4969-8b30-4125ac791cd0
   name: flask-app
 spec:
   replicas: 1
@@ -49,7 +49,7 @@ spec:
         app: flask-app
         app.kubernetes.io/managed-by: skaffold
         env: prod
-        skaffold.dev/run-id: b117aca5-cb7e-4505-9bbf-1c1877a8df0e
+        skaffold.dev/run-id: df46ca15-9da6-4969-8b30-4125ac791cd0
     spec:
       containers:
       - env:
@@ -58,7 +58,7 @@ spec:
             configMapKeyRef:
               key: FEATURE
               name: demo-feature-f995d97h79
-        image: gcr.io/agmsb-k8s/flask-app:5b209b9@sha256:e6500a35804ef1de539e11d223a9f291eed41645f0df82803ad5cf8dea0f4d74
+        image: gcr.io/agmsb-k8s/flask-app:474bfce@sha256:db278443f6cca4b8d51e1fa09a93ad4c5b12589cb3c844bb6f45ea81b85fbedf
         imagePullPolicy: IfNotPresent
         name: flask-app
         ports:
